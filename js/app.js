@@ -16,15 +16,15 @@ function todaysForecast(location, current) {
           <div>
             <img src="images/imgi_3_icon-umberella.png" class="w-100" />
           </div>
-          <p class="text-white-50 ms-1 me-3">20%</p>
+          <p class="text-white-50 ms-1 me-3">${current.cloud}%</p>
           <div>
             <img src="images/imgi_4_icon-wind.png" />
           </div>
-          <p class="text-white-50 ms-1 me-3">18km/h</p>
+          <p class="text-white-50 ms-1 me-3">${current.wind_kph} km/h</p>
           <div>
             <img src="images/imgi_5_icon-compass.png" />
           </div>
-          <p class="text-white-50 ms-1 me-3">East</p>
+          <p class="text-white-50 ms-1 me-3">${current.wind_dir}</p>
         </div>
       </div>
     </div>
@@ -77,13 +77,28 @@ async function getForecast(q) {
   }
 }
 
-async function getLocationForecast() {
-  try {
-    const loc = await fetch(`https://ipinfo.io/json?token=96745d14c355f7`);
-    const data = await loc.json();
-    getForecast(data.city);
-  } catch (error) {
-    console.error(error);
+function getLocationForecast() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const x = position.coords.latitude;
+        const y = position.coords.longitude;
+        getForecast(`${x},${y}`);
+      },
+      async (error) => {
+        try {
+          const loc = await fetch(
+            `https://ipinfo.io/json?token=96745d14c355f7`
+          );
+          const data = await loc.json();
+          getForecast(data.city);
+        } catch (err) {
+          console.error(err);
+          getForecast("Cairo");
+        }
+      }
+    );
+  } else {
     getForecast("Cairo");
   }
 }
