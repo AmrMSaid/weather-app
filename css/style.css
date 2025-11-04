@@ -1,0 +1,92 @@
+.navbar {
+  background-color: #1e202b !important;
+  height: 150px;
+}
+
+.logo {
+  width: 70px;
+}
+
+main {
+  background-color: #1e202b;
+  height: 600px;
+}
+
+@media screen and (max-width: 992px) {
+  main {
+    height: 1150px;
+  }
+}
+
+.form-control {
+  background-color: #1e202b;
+  height: 50px;
+}
+
+.form-control:focus {
+  background-color: #1e202b;
+  z-index: 0 !important;
+}
+
+::placeholder {
+  color: #6c757d !important;
+}
+
+.btn-outline-secondary {
+  background-color: #009ad8;
+  height: 40px;
+  top: 29px;
+  right: 28px;
+}
+
+.cards {
+  top: 200px;
+  left: 10%;
+  width: 80%;
+}
+
+.card1-header {
+  background-color: #2d303d;
+  height: 40px;
+}
+
+.card2-header {
+  background-color: #222530;
+  height: 40px;
+}
+
+.card1 {
+  background-color: #323544;
+}
+
+.card2 {
+  background-color: #262936;
+}
+
+footer {
+  background-color: #262936;
+}
+
+#twitter:hover {
+  background-color: #55acee;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  background-color: #1e202b;
+  transition: 0.3s;
+}
+
+i {
+  transition: 0.3s;
+}
+
+.circle:hover {
+  background-color: #009ad8;
+  cursor: pointer;
+}
+
+.circle:hover i {
+  color: white !important;
+}
