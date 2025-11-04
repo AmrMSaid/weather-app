@@ -1,10 +1,10 @@
 function todaysForecast(location, current) {
-  const e = new Date(current.last_updated);
-  const todaysDate = `${e.getDate()} ${months[e.getMonth()]}`;
+  const d = new Date(current.last_updated);
+  const todaysDate = `${d.getDate()} ${months[d.getMonth()]}`;
   window._todayCardHtml = `
     <div class="card1 col p-0">
       <div class="card1-header w-100 text-white d-flex justify-content-between p-2">
-        <p>${days[e.getDay()]}</p>
+        <p>${days[d.getDay()]}</p>
         <p>${todaysDate}</p>
       </div>
       <div class="d-flex flex-column flex align-items-start p-3">
@@ -62,9 +62,8 @@ function nextDaysForecast(daysArr) {
     </div>
   `;
 }
-search("cairo");
 
-async function search(q) {
+async function getForecast(q) {
   try {
     const f = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=f112999abe014ada88a154322250311&q=${q}&days=3`
@@ -78,10 +77,24 @@ async function search(q) {
   }
 }
 
+async function getLocationForecast() {
+  try {
+    const loc = await fetch(`https://ipinfo.io/json?token=96745d14c355f7`);
+    const data = await loc.json();
+    getForecast(data.city);
+  } catch (error) {
+    console.error(error);
+    getForecast("Cairo");
+  }
+}
+
 const searchInput = document.getElementById("search");
 searchInput.addEventListener("keyup", (e) => {
-  search(e.target.value);
+  getForecast(e.target.value);
 });
+
+getLocationForecast();
+
 const days = [
   "Sunday",
   "Monday",
